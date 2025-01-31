@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable, getPaginationRowModel } from '@tanstack/react-table';
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -60,7 +60,6 @@ export function DataTable<TData, TValue>({
                     </thead>
                     <div></div>
                     <tbody >
-                        {/* <div className='overflow-y-scroll'> */}
                         {table.getRowModel().rows.map(row => (
                             <tr key={row.id}>
                                 {row.getVisibleCells().map((cell) => (
@@ -70,7 +69,6 @@ export function DataTable<TData, TValue>({
                                 ))}
                             </tr>
                         ))}
-                        {/* </div> */}
                     </tbody>
                 </table >
             </div>
@@ -106,8 +104,6 @@ export function DataTable<TData, TValue>({
                     </Button>
                 </div>
             </div>
-
         </div>
-
     );
 }
