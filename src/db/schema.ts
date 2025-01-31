@@ -23,7 +23,7 @@ const advocates = pgTable("advocates", {
 
 
 type AdvocateData = typeof advocates.$inferInsert;
-type Advocate = typeof advocates.$inferSelect;
+type Advocate = Omit<typeof advocates.$inferSelect, "id" | "createdAt">;
 
 
 export { advocates, type Advocate, type AdvocateData };

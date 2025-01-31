@@ -17,6 +17,4 @@ export async function getAdvocates({ filterString }: { filterString?: string }) 
             sql<string>`cast(${advocates.yearsOfExperience} as text) ilike ${matchString}`,
             sql<string>`cast(${advocates.phoneNumber} as text) ilike ${matchString}`) : undefined)
         .orderBy(advocates.firstName)
-        .limit(5);
-
 }
