@@ -1,34 +1,34 @@
 "use client";
 
 import { Advocate } from "@/db/schema";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAdvocates } from "../actions";
 
 
 const AdvocatesPage = ({ advocates }: { advocates: Omit<Advocate, "id" | "createdAt">[] }) => {
     const [filteredAdvocates, setFilteredAdvocates] = useState(advocates);
+    const [filterString, setFilterString] = useState<undefined | string>(undefined);
+
     const onChange = (e) => {
         const searchTerm = e.target.value;
-
         document.getElementById("search-term").innerHTML = searchTerm;
-
-        console.log("filtering advocates...");
-        const filteredAdvocates = advocates.filter((advocate) => {
-            return (
-                advocate.firstName.includes(searchTerm) ||
-                advocate.lastName.includes(searchTerm) ||
-                advocate.city.includes(searchTerm) ||
-                advocate.degree.includes(searchTerm) ||
-                advocate.specialties.includes(searchTerm) ||
-                advocate.yearsOfExperience.includes(searchTerm)
-            );
-        });
-
-        setFilteredAdvocates(filteredAdvocates);
+        setFilterString(searchTerm)
     };
+
+    useEffect(() => {
+        const doGetAdvocates = async () => {
+            const advocates = await getAdvocates({ filterString });
+            setFilteredAdvocates(advocates)
+        }
+
+        if (filterString != undefined) {
+            doGetAdvocates()
+        }
+    }, [filterString])
 
     const onClick = () => {
         console.log(advocates);
-        setFilteredAdvocates(advocates);
+        setFilterString("")
     };
 
     return (
