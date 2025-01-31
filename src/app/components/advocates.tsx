@@ -11,12 +11,6 @@ const AdvocatesPage = ({ advocates }: { advocates: Advocate[] }) => {
     const [filteredAdvocates, setFilteredAdvocates] = useState(advocates);
     const [filterString, setFilterString] = useState<undefined | string>(undefined);
 
-    const onChange = (e) => {
-        const searchTerm = e.target.value;
-        document.getElementById("search-term").innerHTML = searchTerm;
-        setFilterString(searchTerm)
-    };
-
     useEffect(() => {
         const doGetAdvocates = async () => {
             const advocates = await getAdvocates({ filterString });
@@ -28,28 +22,16 @@ const AdvocatesPage = ({ advocates }: { advocates: Advocate[] }) => {
         }
     }, [filterString])
 
-    const onClick = () => {
-        console.log(advocates);
-        setFilterString("")
-    };
-
     return (
-        <main style={{ margin: "24px" }}>
-            <h1>Solace Advocates</h1>
-            <br />
-            <br />
-            <div>
-                <p>Search</p>
-                <p>
-                    Searching for: <span id="search-term"></span>
-                </p>
-                <input style={{ border: "1px solid black" }} onChange={onChange} />
-                <button onClick={onClick}>Reset Search</button>
-            </div>
-            <br />
-            <br />
+        <div className="space-y-4">
+            <h1 className="font-bold text-2xl text-emerald-800">Solace Advocates</h1>
+            <input
+                placeholder="Search..."
+                className="p-1 border rounded text-sm border-gray-300 w-[400px]"
+                onChange={(e) => setFilterString(e.target.value)}
+            />
             <DataTable columns={columns} data={filteredAdvocates} />
-        </main>
+        </div>
     );
 }
 
