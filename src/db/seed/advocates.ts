@@ -1,5 +1,4 @@
-import db from "..";
-import { advocates } from "../schema";
+import { Advocate, } from "../schema";
 
 const specialties = [
   "Bipolar",
@@ -37,7 +36,9 @@ const randomSpecialty = () => {
   return [random1, random2];
 };
 
-const advocateData = [
+type MockData = Omit<Advocate, "id" | "createdAt">
+
+const advocateData: MockData[] = [
   {
     firstName: "John",
     lastName: "Doe",
